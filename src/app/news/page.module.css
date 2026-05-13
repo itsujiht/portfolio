@@ -1,0 +1,254 @@
+/* =============================================
+   PAGE
+   ============================================= */
+
+.page {
+  padding-top: calc(var(--nav-h) + 80px);
+  padding-bottom: 140px;
+
+  max-width: var(--max-w);
+
+  margin: 0 auto;
+
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+}
+
+/* =============================================
+   HERO
+   ============================================= */
+
+.hero {
+  display: grid;
+
+  grid-template-columns: 1fr 320px;
+
+  gap: 48px;
+
+  align-items: end;
+
+  min-height: 34vh;
+
+  padding-bottom: 64px;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.heroLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: clamp(72px, 11vw, 148px);
+
+  line-height: 0.9;
+
+  letter-spacing: -0.05em;
+
+  color: var(--text-primary);
+}
+
+.heroRight {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.description {
+  max-width: 28ch;
+
+  font-size: 14px;
+
+  line-height: 1.9;
+
+  color: var(--text-secondary);
+}
+
+/* =============================================
+   SECTION HEADER
+   ============================================= */
+
+.listSection {
+  padding-top: 56px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+
+  padding-bottom: 28px;
+}
+
+/* =============================================
+   LIST
+   ============================================= */
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns: 220px minmax(0, 1fr);
+
+  gap: 36px;
+
+  padding: 32px 0;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+/* default line */
+
+.item::after {
+  content: '';
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 1px;
+
+  background: var(--line);
+}
+
+/* animated hover line */
+
+.item::before {
+  content: '';
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 0%;
+  height: 1px;
+
+  background: var(--accent);
+
+  transition: width 0.35s ease;
+}
+
+.item:hover::before {
+  width: 100%;
+}
+
+.item:hover {
+  background:
+    rgba(255,255,255,0.012);
+
+  transform: translateX(4px);
+}
+
+
+
+
+/* =============================================
+   META
+   ============================================= */
+
+.meta {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  padding-top: 2px;
+}
+
+.date {
+  color: var(--text-muted);
+
+  font-variant-numeric: tabular-nums;
+}
+
+.cat {
+  color: var(--accent-dim);
+}
+
+/* =============================================
+   CONTENT
+   ============================================= */
+
+.content {
+  max-width: 76ch;
+}
+
+.text {
+  font-size: clamp(15px, 1.2vw, 18px);
+
+  line-height: 2;
+
+  color: var(--text-secondary);
+
+  transition: color 0.25s ease;
+}
+
+.item:hover .text {
+  color: var(--text-primary);
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 1000px) {
+  .hero {
+    grid-template-columns: 1fr;
+
+    gap: 28px;
+
+    min-height: auto;
+  }
+
+  .heroRight {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding-top: calc(var(--nav-h) + 48px);
+  }
+
+  .title {
+    font-size: clamp(52px, 18vw, 92px);
+  }
+
+  .sectionHeader {
+    gap: 12px;
+  }
+
+  .item {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+
+    padding: 24px 0;
+  }
+
+  .meta {
+    gap: 6px;
+  }
+
+  .text {
+    font-size: 14px;
+
+    line-height: 1.9;
+  }
+}

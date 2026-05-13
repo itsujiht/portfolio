@@ -1,66 +1,74 @@
-import Image from "next/image";
 import styles from "./page.module.css";
+import Link from "next/link";
+import { works, news, profile } from '@/data/content';
+import WorkCard from '@/components/WorkCard';
 
-export default function Home() {
+const featured = works.filter(w => w.type === 'illustration').slice(0, 3)
+
+export default function Page() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className={`page-enter ${styles.page}`}>
+
+      {/* ── HERO ── */}
+      <section className={styles.hero}>
+        <div className={styles.heroInner}>
+          <p className={`label ${styles.eyebrow}`}>
+            {profile.role}
           </p>
+          <h1 className={`display ${styles.heroName}`}>
+            {profile.name}
+          </h1>
+          <p className={styles.heroBio}>{profile.bio}</p>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className={styles.heroIndex}>
+          <p className="label">Index</p>
+          <ul className={styles.indexList}>
+            <li><Link href="/works" className={styles.indexLink}>Illustration</Link></li>
+            <li><Link href="/works" className={styles.indexLink}>Music</Link></li>
+            <li><Link href="/works" className={styles.indexLink}>Video</Link></li>
+            <li><Link href="/works" className={styles.indexLink}>Article</Link></li>
+          </ul>
         </div>
-      </main>
-    </div>
-  );
+      </section>
+
+      {/* ── DIVIDER ── */}
+      <div className={styles.sectionLabel}>
+        <span className="label">Selected works</span>
+        <hr className="rule" style={{ flex: 1 }} />
+        <span className="label">{works.length} works total</span>
+      </div>
+
+      {/* ── FEATURED GRID ── */}
+      <section className={styles.grid}>
+        {featured.map((work, i) => (
+          <WorkCard key={work.id} work={work} index={i} />
+        ))}
+      </section>
+
+      <div className={styles.viewAll}>
+        <Link href="/works" className={styles.viewAllLink}>
+          View all works →
+        </Link>
+      </div>
+
+      {/* ── NEWS ── */}
+      <div className={styles.sectionLabel}>
+        <span className="label">News</span>
+        <hr className="rule" style={{ flex: 1 }} />
+      </div>
+
+      <section className={styles.news}>
+        {news.map(item => (
+          <div key={item.id} className={styles.newsItem}>
+            <span className={`label ${styles.newsDate}`}>{item.date}</span>
+            <span className={`label ${styles.newsCat}`}>{item.category}</span>
+            <p className={styles.newsText}>{item.text}</p>
+          </div>
+        ))}
+      </section>
+
+    </main>
+  )
 }
+
